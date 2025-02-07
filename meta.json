@@ -59,12 +59,6 @@
         "originalUrl": "https://gitlab.haskell.org/api/v4/projects/1/jobs/2064942/artifacts/ghc-x86_64-linux-alpine3_20-wasm-cross_wasm32-wasi-release+host_fully_static+text_simdutf.tar.xz",
         "sriHash": "sha256-JLjWyWfwqrfaO/wvdsDY7maDyhxyYwJ/qqbqSPmEIpk="
     },
-    "wasm32-wasi-ghc-gmp-aarch64-darwin": {
-        "ghcSubdir": "ghc-9.13.20241215-wasm32-wasi",
-        "mirrorUrl": "https://github.com/haskell-wasm/ghc-wasm-bindists/releases/download/20241215T202201/wasm32-wasi-ghc-gmp-aarch64-darwin.tar.zst",
-        "originalUrl": "https://nightly.link/haskell-wasm/ghc-wasm-bindists/actions/artifacts/2322374789.zip",
-        "sriHash": "sha256-3BDQDA2u4o00Gd12FF2M1kbONH7q6bK8jjezbewn2Jg="
-    },
     "wasm32-wasi-ghc-gmp-aarch64-darwin-9.10": {
         "ghcSubdir": "ghc-9.10.1.20241209-wasm32-wasi",
         "mirrorUrl": "https://github.com/haskell-wasm/ghc-wasm-bindists/releases/download/20241215T202201/wasm32-wasi-ghc-gmp-aarch64-darwin-9.10.tar.zst",
@@ -76,18 +70,6 @@
         "mirrorUrl": "https://github.com/haskell-wasm/ghc-wasm-bindists/releases/download/20241215T202201/wasm32-wasi-ghc-gmp-aarch64-darwin-9.12.tar.zst",
         "originalUrl": "https://nightly.link/haskell-wasm/ghc-wasm-bindists/actions/artifacts/2322315957.zip",
         "sriHash": "sha256-tEN9eqLdHTToh8hJ//0+ybCeqc6CGoRCkdpLHQAGozs="
-    },
-    "wasm32-wasi-ghc-gmp-aarch64-linux": {
-        "ghcSubdir": "ghc-9.13.20241215-wasm32-wasi",
-        "mirrorUrl": "https://github.com/haskell-wasm/ghc-wasm-bindists/releases/download/20241215T202201/wasm32-wasi-ghc-gmp-aarch64-linux.tar.zst",
-        "originalUrl": "https://nightly.link/haskell-wasm/ghc-wasm-bindists/actions/artifacts/2322380663.zip",
-        "sriHash": "sha256-WzZTNd8HHN2beCJiV6W9/MfdoIweXOJk3Up6PL71T6Q="
-    },
-    "wasm32-wasi-ghc-gmp-x86_64-darwin": {
-        "ghcSubdir": "ghc-9.13.20241215-wasm32-wasi",
-        "mirrorUrl": "https://github.com/haskell-wasm/ghc-wasm-bindists/releases/download/20241215T202201/wasm32-wasi-ghc-gmp-x86_64-darwin.tar.zst",
-        "originalUrl": "https://nightly.link/haskell-wasm/ghc-wasm-bindists/actions/artifacts/2322524534.zip",
-        "sriHash": "sha256-lcxguHRKKIqqgadCTdFp83U8oK3/scmUjmhDLwQC/lY="
     },
     "wasm32-wasi-ghc-native": {
         "ghcSubdir": "ghc-9.13.20241214-wasm32-wasi",

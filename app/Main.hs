@@ -1,4 +1,4 @@
-module Main where
+module Main (main) where
 
 import Codec.Archive.Zip.Conduit.UnZip qualified as UnZip
 import Conduit
@@ -11,7 +11,6 @@ import Data.ByteString.Base64 (encodeBase64)
 import Data.ByteString.Lazy qualified as BL
 import Data.Conduit.Lzma qualified as Lzma
 import Data.Conduit.Tar qualified as Tar
-import Data.Conduit.Zstd qualified as Zstd
 import Data.Map.Merge.Strict qualified as Map
 import Data.Map.Strict qualified as Map
 import Data.Text qualified as T
@@ -121,13 +120,11 @@ download mgr dlArgs url dir basename = runConduitRes do
       ZipSink $ sinkFile initialFile
       sha256 <- ZipSink sinkSha256
       ghcSubdir <- case dlArgs.isGhcBindist of
-        Just compressionFormat -> ZipSink do
-          let decompress = case compressionFormat of
-                Lzma -> Lzma.decompress Nothing
-                Zstd -> Zstd.decompress
+        True -> ZipSink do
+          let decompress = Lzma.decompress Nothing
           Just fi <- decompress .| Tar.untar yield .| headC
           pure $ Just $ T.takeWhile (/= '/') $ decodeUtf8 $ Tar.filePath fi
-        Nothing -> pure Nothing
+        False -> pure Nothing
       pure (sha256, ghcSubdir)
   let actualFileName = addExtension basename ext
   renameFile initialFile (dir </> actualFileName)
@@ -164,7 +161,7 @@ data DownloadArgs = DownloadArgs
   { -- | If 'True: unpack the ZIP file.
     isSingleEntryZip :: Bool,
     -- | Used to extract the GHC bindist subdir for metadata.
-    isGhcBindist :: Maybe CompressionFormat
+    isGhcBindist :: Bool
   }
   deriving stock (Show)
 
@@ -172,11 +169,8 @@ rawFileDownloadArgs :: DownloadArgs
 rawFileDownloadArgs =
   DownloadArgs
     { isSingleEntryZip = False,
-      isGhcBindist = Nothing
+      isGhcBindist = False
     }
-
-data CompressionFormat = Lzma | Zstd
-  deriving stock (Show)
 
 -- get the latest version of a bindist
 
@@ -250,7 +244,7 @@ bindistInfos =
     [ (,)
         "wasm32-wasi-ghc-gmp"
         BindistInfo
-          { dlArgs = rawFileDownloadArgs {isGhcBindist = Just Lzma},
+          { dlArgs = rawFileDownloadArgs {isGhcBindist = True},
             src =
               GitLabArtifact
                 { gitlabDomain = "gitlab.haskell.org",
@@ -264,7 +258,7 @@ bindistInfos =
       (,)
         "wasm32-wasi-ghc-native"
         BindistInfo
-          { dlArgs = rawFileDownloadArgs {isGhcBindist = Just Lzma},
+          { dlArgs = rawFileDownloadArgs {isGhcBindist = True},
             src =
               GitLabArtifact
                 { gitlabDomain = "gitlab.haskell.org",
@@ -278,7 +272,7 @@ bindistInfos =
       (,)
         "wasm32-wasi-ghc-unreg"
         BindistInfo
-          { dlArgs = rawFileDownloadArgs {isGhcBindist = Just Lzma},
+          { dlArgs = rawFileDownloadArgs {isGhcBindist = True},
             src =
               GitLabArtifact
                 { gitlabDomain = "gitlab.haskell.org",
@@ -292,7 +286,7 @@ bindistInfos =
       (,)
         "wasm32-wasi-ghc-9.6"
         BindistInfo
-          { dlArgs = rawFileDownloadArgs {isGhcBindist = Just Lzma},
+          { dlArgs = rawFileDownloadArgs {isGhcBindist = True},
             src =
               GitLabArtifact
                 { gitlabDomain = "gitlab.haskell.org",
@@ -306,7 +300,7 @@ bindistInfos =
       (,)
         "wasm32-wasi-ghc-9.8"
         BindistInfo
-          { dlArgs = rawFileDownloadArgs {isGhcBindist = Just Lzma},
+          { dlArgs = rawFileDownloadArgs {isGhcBindist = True},
             src =
               GitLabArtifact
                 { gitlabDomain = "gitlab.haskell.org",
@@ -320,21 +314,21 @@ bindistInfos =
       (,)
         "wasm32-wasi-ghc-9.10"
         BindistInfo
-          { dlArgs = rawFileDownloadArgs {isGhcBindist = Just Lzma},
+          { dlArgs = rawFileDownloadArgs {isGhcBindist = True},
             src =
               GitLabArtifact
                 { gitlabDomain = "gitlab.haskell.org",
                   projectId = 224,
                   ref = "ghc-9.10",
-                  jobName = "x86_64-linux-alpine3_20-wasm-cross_wasm32-wasi-release+host_fully_static",
-                  artifactPath = "ghc-x86_64-linux-alpine3_20-wasm-cross_wasm32-wasi-release+host_fully_static.tar.xz",
+                  jobName = "x86_64-linux-alpine3_20-wasm-cross_wasm32-wasi-release+host_fully_static+text_simdutf",
+                  artifactPath = "ghc-x86_64-linux-alpine3_20-wasm-cross_wasm32-wasi-release+host_fully_static+text_simdutf.tar.xz",
                   pipelineFilter = []
                 }
           },
       (,)
         "wasm32-wasi-ghc-9.12"
         BindistInfo
-          { dlArgs = rawFileDownloadArgs {isGhcBindist = Just Lzma},
+          { dlArgs = rawFileDownloadArgs {isGhcBindist = True},
             src =
               GitLabArtifact
                 { gitlabDomain = "gitlab.haskell.org",
@@ -346,63 +340,59 @@ bindistInfos =
                 }
           },
       (,)
-        "wasm32-wasi-ghc-gmp-aarch64-darwin"
-        BindistInfo
-          { dlArgs = DownloadArgs {isSingleEntryZip = True, isGhcBindist = Just Zstd},
-            src =
-              GitHubArtifact
-                { ownerRepo = "haskell-wasm/ghc-wasm-bindists",
-                  branch = "main",
-                  workflowName = "ghc-wasm-darwin-bindist",
-                  artifactName = "ghc-wasm-aarch64-darwin-master-bindist"
-                }
-          },
-      (,)
         "wasm32-wasi-ghc-gmp-aarch64-darwin-9.12"
         BindistInfo
-          { dlArgs = DownloadArgs {isSingleEntryZip = True, isGhcBindist = Just Zstd},
+          { dlArgs = rawFileDownloadArgs {isGhcBindist = True},
             src =
-              GitHubArtifact
-                { ownerRepo = "haskell-wasm/ghc-wasm-bindists",
-                  branch = "main",
-                  workflowName = "ghc-wasm-darwin-bindist",
-                  artifactName = "ghc-wasm-aarch64-darwin-ghc-9.12-bindist"
+              GitLabArtifact
+                { gitlabDomain = "gitlab.haskell.org",
+                  projectId = 224,
+                  ref = "ghc-9.12",
+                  jobName = "aarch64-darwin-cross_wasm32-wasi-release+text_simdutf",
+                  artifactPath = "ghc-aarch64-darwin-cross_wasm32-wasi-release+text_simdutf.tar.xz",
+                  pipelineFilter = []
                 }
           },
       (,)
         "wasm32-wasi-ghc-gmp-aarch64-darwin-9.10"
         BindistInfo
-          { dlArgs = DownloadArgs {isSingleEntryZip = True, isGhcBindist = Just Zstd},
+          { dlArgs = rawFileDownloadArgs {isGhcBindist = True},
             src =
-              GitHubArtifact
-                { ownerRepo = "haskell-wasm/ghc-wasm-bindists",
-                  branch = "main",
-                  workflowName = "ghc-wasm-darwin-bindist",
-                  artifactName = "ghc-wasm-aarch64-darwin-ghc-9.10-bindist"
+              GitLabArtifact
+                { gitlabDomain = "gitlab.haskell.org",
+                  projectId = 224,
+                  ref = "ghc-9.10",
+                  jobName = "aarch64-darwin-cross_wasm32-wasi-release+text_simdutf",
+                  artifactPath = "ghc-aarch64-darwin-cross_wasm32-wasi-release+text_simdutf.tar.xz",
+                  pipelineFilter = []
                 }
           },
       (,)
-        "wasm32-wasi-ghc-gmp-x86_64-darwin"
+        "wasm32-wasi-ghc-gmp-aarch64-linux-9.12"
         BindistInfo
-          { dlArgs = DownloadArgs {isSingleEntryZip = True, isGhcBindist = Just Zstd},
+          { dlArgs = rawFileDownloadArgs {isGhcBindist = True},
             src =
-              GitHubArtifact
-                { ownerRepo = "haskell-wasm/ghc-wasm-bindists",
-                  branch = "main",
-                  workflowName = "ghc-wasm-darwin-bindist",
-                  artifactName = "ghc-wasm-x86_64-darwin-master-bindist"
+              GitLabArtifact
+                { gitlabDomain = "gitlab.haskell.org",
+                  projectId = 224,
+                  ref = "ghc-9.12",
+                  jobName = "aarch64-linux-alpine3_18-cross_wasm32-wasi-release+host_fully_static+text_simdutf",
+                  artifactPath = "ghc-aarch64-linux-alpine3_18-cross_wasm32-wasi-release+host_fully_static+text_simdutf.tar.xz",
+                  pipelineFilter = []
                 }
           },
       (,)
-        "wasm32-wasi-ghc-gmp-aarch64-linux"
+        "wasm32-wasi-ghc-gmp-aarch64-linux-9.10"
         BindistInfo
-          { dlArgs = DownloadArgs {isSingleEntryZip = True, isGhcBindist = Just Zstd},
+          { dlArgs = rawFileDownloadArgs {isGhcBindist = True},
             src =
-              GitHubArtifact
-                { ownerRepo = "haskell-wasm/ghc-wasm-bindists",
-                  branch = "main",
-                  workflowName = "ghc-wasm-aarch64-linux-bindist",
-                  artifactName = "ghc-wasm-aarch64-linux-bindist"
+              GitLabArtifact
+                { gitlabDomain = "gitlab.haskell.org",
+                  projectId = 224,
+                  ref = "ghc-9.10",
+                  jobName = "aarch64-linux-alpine3_18-cross_wasm32-wasi-release+host_fully_static+text_simdutf",
+                  artifactPath = "ghc-aarch64-linux-alpine3_18-cross_wasm32-wasi-release+host_fully_static+text_simdutf.tar.xz",
+                  pipelineFilter = []
                 }
           },
       (,)

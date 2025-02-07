@@ -10,7 +10,6 @@ executable ghc-wasm-bindists
     , base
     , base64
     , conduit
-    , conduit-zstd
     , containers
     , cryptohash-sha256
     , deriving-aeson
