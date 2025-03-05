@@ -10,10 +10,7 @@ on:
     - cron: '0 20 * * 0'
 jobs:
   mirror:
-    runs-on:
-      - X64
-      - Linux
-      - ubuntu
+    runs-on: ubuntu-24.04
     permissions:
       contents: write
     steps:
