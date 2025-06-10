@@ -27,7 +27,7 @@ jobs:
             --bindist-regex '${{ inputs.bindistRegex || '' }}'
         env:
           TAG: ${{ steps.release-tag-name.outputs.TAG }}
-      - uses: stefanzweifel/git-auto-commit-action@v5
+      - uses: stefanzweifel/git-auto-commit-action@v6
         id: auto-commit-action
         with:
           commit_message: Update mirror metadata
