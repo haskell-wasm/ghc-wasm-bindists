@@ -405,7 +405,7 @@ bindistInfos =
                   projectId = 3212,
                   ref = "master",
                   jobName = "x86_64-linux",
-                  artifactPath = "dist/wasi-sdk-26.0-x86_64-linux.tar.gz",
+                  artifactPath = "dist/wasi-sdk-27.0-x86_64-linux.tar.gz",
                   pipelineFilter = []
                 }
           },
@@ -419,7 +419,7 @@ bindistInfos =
                   projectId = 3212,
                   ref = "master",
                   jobName = "aarch64-darwin",
-                  artifactPath = "dist/wasi-sdk-26.0-arm64-macos.tar.gz",
+                  artifactPath = "dist/wasi-sdk-27.0-arm64-macos.tar.gz",
                   pipelineFilter = []
                 }
           },
@@ -433,7 +433,7 @@ bindistInfos =
                   projectId = 3212,
                   ref = "master",
                   jobName = "x86_64-darwin",
-                  artifactPath = "dist/wasi-sdk-26.0-arm64-macos.tar.gz",
+                  artifactPath = "dist/wasi-sdk-27.0-arm64-macos.tar.gz",
                   pipelineFilter = []
                 }
           },
@@ -447,7 +447,7 @@ bindistInfos =
                   projectId = 3212,
                   ref = "master",
                   jobName = "aarch64-linux",
-                  artifactPath = "dist/wasi-sdk-26.0-aarch64-linux.tar.gz",
+                  artifactPath = "dist/wasi-sdk-27.0-aarch64-linux.tar.gz",
                   pipelineFilter = []
                 }
           },
