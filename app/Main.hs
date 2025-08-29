@@ -340,6 +340,34 @@ bindistInfos =
                 }
           },
       (,)
+        "wasm32-wasi-ghc-9.14"
+        BindistInfo
+          { dlArgs = rawFileDownloadArgs {isGhcBindist = True},
+            src =
+              GitLabArtifact
+                { gitlabDomain = "gitlab.haskell.org",
+                  projectId = 224,
+                  ref = "ghc-9.14",
+                  jobName = "x86_64-linux-alpine3_20-wasm-cross_wasm32-wasi-release+host_fully_static+text_simdutf",
+                  artifactPath = "ghc-x86_64-linux-alpine3_20-wasm-cross_wasm32-wasi-release+host_fully_static+text_simdutf.tar.xz",
+                  pipelineFilter = []
+                }
+          },
+      (,)
+        "wasm32-wasi-ghc-gmp-aarch64-darwin-9.14"
+        BindistInfo
+          { dlArgs = rawFileDownloadArgs {isGhcBindist = True},
+            src =
+              GitLabArtifact
+                { gitlabDomain = "gitlab.haskell.org",
+                  projectId = 224,
+                  ref = "ghc-9.14",
+                  jobName = "aarch64-darwin-cross_wasm32-wasi-release+text_simdutf",
+                  artifactPath = "ghc-aarch64-darwin-cross_wasm32-wasi-release+text_simdutf.tar.xz",
+                  pipelineFilter = []
+                }
+          },
+      (,)
         "wasm32-wasi-ghc-gmp-aarch64-darwin-9.12"
         BindistInfo
           { dlArgs = rawFileDownloadArgs {isGhcBindist = True},
@@ -364,6 +392,62 @@ bindistInfos =
                   ref = "ghc-9.10",
                   jobName = "aarch64-darwin-cross_wasm32-wasi-release+text_simdutf",
                   artifactPath = "ghc-aarch64-darwin-cross_wasm32-wasi-release+text_simdutf.tar.xz",
+                  pipelineFilter = []
+                }
+          },
+      (,)
+        "wasm32-wasi-ghc-gmp-x86_64-darwin-9.14"
+        BindistInfo
+          { dlArgs = rawFileDownloadArgs {isGhcBindist = True},
+            src =
+              GitLabArtifact
+                { gitlabDomain = "gitlab.haskell.org",
+                  projectId = 224,
+                  ref = "ghc-9.14",
+                  jobName = "x86_64-darwin-cross_wasm32-wasi-release+text_simdutf",
+                  artifactPath = "ghc-x86_64-darwin-cross_wasm32-wasi-release+text_simdutf.tar.xz",
+                  pipelineFilter = []
+                }
+          },
+      (,)
+        "wasm32-wasi-ghc-gmp-x86_64-darwin-9.12"
+        BindistInfo
+          { dlArgs = rawFileDownloadArgs {isGhcBindist = True},
+            src =
+              GitLabArtifact
+                { gitlabDomain = "gitlab.haskell.org",
+                  projectId = 224,
+                  ref = "ghc-9.12",
+                  jobName = "x86_64-darwin-cross_wasm32-wasi-release+text_simdutf",
+                  artifactPath = "ghc-x86_64-darwin-cross_wasm32-wasi-release+text_simdutf.tar.xz",
+                  pipelineFilter = []
+                }
+          },
+      (,)
+        "wasm32-wasi-ghc-gmp-x86_64-darwin-9.10"
+        BindistInfo
+          { dlArgs = rawFileDownloadArgs {isGhcBindist = True},
+            src =
+              GitLabArtifact
+                { gitlabDomain = "gitlab.haskell.org",
+                  projectId = 224,
+                  ref = "ghc-9.10",
+                  jobName = "x86_64-darwin-cross_wasm32-wasi-release+text_simdutf",
+                  artifactPath = "ghc-x86_64-darwin-cross_wasm32-wasi-release+text_simdutf.tar.xz",
+                  pipelineFilter = []
+                }
+          },
+      (,)
+        "wasm32-wasi-ghc-gmp-aarch64-linux-9.14"
+        BindistInfo
+          { dlArgs = rawFileDownloadArgs {isGhcBindist = True},
+            src =
+              GitLabArtifact
+                { gitlabDomain = "gitlab.haskell.org",
+                  projectId = 224,
+                  ref = "ghc-9.14",
+                  jobName = "aarch64-linux-alpine3_18-cross_wasm32-wasi-release+host_fully_static+text_simdutf",
+                  artifactPath = "ghc-aarch64-linux-alpine3_18-cross_wasm32-wasi-release+host_fully_static+text_simdutf.tar.xz",
                   pipelineFilter = []
                 }
           },
