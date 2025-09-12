@@ -250,8 +250,8 @@ bindistInfos =
                 { gitlabDomain = "gitlab.haskell.org",
                   projectId = 1,
                   ref = "master",
-                  jobName = "nightly-x86_64-linux-alpine3_20-wasm-cross_wasm32-wasi-release+host_fully_static+text_simdutf",
-                  artifactPath = "ghc-x86_64-linux-alpine3_20-wasm-cross_wasm32-wasi-release+host_fully_static+text_simdutf.tar.xz",
+                  jobName = "nightly-x86_64-linux-alpine3_22-wasm-cross_wasm32-wasi-release+host_fully_static+text_simdutf",
+                  artifactPath = "ghc-x86_64-linux-alpine3_22-wasm-cross_wasm32-wasi-release+host_fully_static+text_simdutf.tar.xz",
                   pipelineFilter = [("scope", Just "finished"), ("source", Just "schedule")]
                 }
           },
@@ -264,8 +264,8 @@ bindistInfos =
                 { gitlabDomain = "gitlab.haskell.org",
                   projectId = 1,
                   ref = "master",
-                  jobName = "nightly-x86_64-linux-alpine3_20-wasm-int_native-cross_wasm32-wasi-release+host_fully_static+text_simdutf",
-                  artifactPath = "ghc-x86_64-linux-alpine3_20-wasm-int_native-cross_wasm32-wasi-release+host_fully_static+text_simdutf.tar.xz",
+                  jobName = "nightly-x86_64-linux-alpine3_22-wasm-int_native-cross_wasm32-wasi-release+host_fully_static+text_simdutf",
+                  artifactPath = "ghc-x86_64-linux-alpine3_22-wasm-int_native-cross_wasm32-wasi-release+host_fully_static+text_simdutf.tar.xz",
                   pipelineFilter = [("scope", Just "finished"), ("source", Just "schedule")]
                 }
           },
@@ -278,8 +278,8 @@ bindistInfos =
                 { gitlabDomain = "gitlab.haskell.org",
                   projectId = 1,
                   ref = "master",
-                  jobName = "nightly-x86_64-linux-alpine3_20-wasm-unreg-cross_wasm32-wasi-release+host_fully_static+text_simdutf",
-                  artifactPath = "ghc-x86_64-linux-alpine3_20-wasm-unreg-cross_wasm32-wasi-release+host_fully_static+text_simdutf.tar.xz",
+                  jobName = "nightly-x86_64-linux-alpine3_22-wasm-unreg-cross_wasm32-wasi-release+host_fully_static+text_simdutf",
+                  artifactPath = "ghc-x86_64-linux-alpine3_22-wasm-unreg-cross_wasm32-wasi-release+host_fully_static+text_simdutf.tar.xz",
                   pipelineFilter = [("scope", Just "finished"), ("source", Just "schedule")]
                 }
           },
