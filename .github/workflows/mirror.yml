@@ -1,13 +1,15 @@
 name: Mirror
+
 on:
   workflow_dispatch:
     inputs:
       bindistRegex:
-        description: 'Regex for which bindists to update'
+        description: "Regex for which bindists to update"
         required: false
         type: string
   schedule:
-    - cron: '0 20 * * 0'
+    - cron: "0 20 * * 0"
+
 jobs:
   mirror:
     runs-on: ubuntu-24.04
@@ -15,11 +17,16 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v5
+
       - uses: DeterminateSystems/nix-installer-action@v20
+
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+
       - name: Set release tag name
         id: release-tag-name
         run: |
           echo "TAG=$(date --utc +'%Y%m%dT%H%M%S')" >> "$GITHUB_OUTPUT"
+
       - name: Mirror
         run: |
           nix run . -- --download-url-prefix \
@@ -27,10 +34,12 @@ jobs:
             --bindist-regex '${{ inputs.bindistRegex || '' }}'
         env:
           TAG: ${{ steps.release-tag-name.outputs.TAG }}
+
       - uses: stefanzweifel/git-auto-commit-action@v7
         id: auto-commit-action
         with:
           commit_message: Update mirror metadata
+
       - uses: softprops/action-gh-release@v2
         if: steps.auto-commit-action.outputs.changes_detected == 'true'
         with:

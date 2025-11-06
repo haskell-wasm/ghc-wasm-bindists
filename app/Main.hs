@@ -7,7 +7,8 @@ import Crypto.Hash.SHA256 qualified as SHA256
 import Data.Aeson qualified as A
 import Data.Aeson.Encode.Pretty qualified as AEP
 import Data.Aeson.Lens
-import Data.ByteString.Base64 (encodeBase64)
+import Data.Base64.Types
+import Data.ByteString.Base64
 import Data.ByteString.Lazy qualified as BL
 import Data.Conduit.Lzma qualified as Lzma
 import Data.Conduit.Tar qualified as Tar
@@ -96,7 +97,7 @@ updateStoredBindists mgr cli bindistDir =
                 StoredBindist
                   { mirrorUrl = cli.downloadUrlPrefix <> toText fileName,
                     originalUrl = originalUrl,
-                    sriHash = "sha256-" <> encodeBase64 sha256,
+                    sriHash = "sha256-" <> extractBase64 (encodeBase64 sha256),
                     ghcSubdir
                   }
       | otherwise = pure prevBindist
@@ -489,7 +490,7 @@ bindistInfos =
                   projectId = 3212,
                   ref = "master",
                   jobName = "x86_64-linux",
-                  artifactPath = "dist/wasi-sdk-27.0-x86_64-linux.tar.gz",
+                  artifactPath = "dist/wasi-sdk-28.0-x86_64-linux.tar.gz",
                   pipelineFilter = []
                 }
           },
@@ -503,7 +504,7 @@ bindistInfos =
                   projectId = 3212,
                   ref = "master",
                   jobName = "aarch64-darwin",
-                  artifactPath = "dist/wasi-sdk-27.0-arm64-macos.tar.gz",
+                  artifactPath = "dist/wasi-sdk-28.0-arm64-macos.tar.gz",
                   pipelineFilter = []
                 }
           },
@@ -517,7 +518,7 @@ bindistInfos =
                   projectId = 3212,
                   ref = "master",
                   jobName = "x86_64-darwin",
-                  artifactPath = "dist/wasi-sdk-27.0-arm64-macos.tar.gz",
+                  artifactPath = "dist/wasi-sdk-28.0-arm64-macos.tar.gz",
                   pipelineFilter = []
                 }
           },
@@ -531,7 +532,7 @@ bindistInfos =
                   projectId = 3212,
                   ref = "master",
                   jobName = "aarch64-linux",
-                  artifactPath = "dist/wasi-sdk-27.0-aarch64-linux.tar.gz",
+                  artifactPath = "dist/wasi-sdk-28.0-aarch64-linux.tar.gz",
                   pipelineFilter = []
                 }
           },
